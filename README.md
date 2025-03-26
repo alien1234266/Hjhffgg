@@ -1,67 +1,115 @@
--- Settings
-local gameName = "Mini City"
+-- Configurações
+local jogo = "Lucky Block Battlegrounds"
 
--- Create the panel
-local panel = Instance.new("ScreenGui")
-panel.Name = "WeaponDuplicator"
-panel.Parent = game.StarterGui
+-- Criar o painel
+local painel = Instance.new("ScreenGui")
+painel.Name = "HUB Alien"
+painel.Parent = game.StarterGui
 
--- Create the weapon buttons
-local uziButton = Instance.new("TextButton")
-uziButton.Name = "UziButton"
-uziButton.Text = "Uzi (1)"
-uziButton.Size = UDim2.new(0, 100, 0, 50)
-uziButton.Position = UDim2.new(0, 10, 0, 10)
-uziButton.Parent = panel
+-- Criar os botões de super blocos
+local diamondBlockButton = Instance.new("TextButton")
+diamondBlockButton.Name = "DiamondBlockButton"
+diamondBlockButton.Text = "Diamond Block (1/10/100)"
+diamondBlockButton.Size = UDim2.new(0, 150, 0, 50)
+diamondBlockButton.Position = UDim2.new(0, 10, 0, 10)
+diamondBlockButton.Parent = painel
 
-local akButton = Instance.new("TextButton")
-akButton.Name = "AkButton"
-akButton.Text = "AK (10)"
-akButton.Size = UDim2.new(0, 100, 0, 50)
-akButton.Position = UDim2.new(0, 120, 0, 10)
-akButton.Parent = panel
+local rainbowBlockButton = Instance.new("TextButton")
+rainbowBlockButton.Name = "RainbowBlockButton"
+rainbowBlockButton.Text = "Rainbow Block (1/10/100)"
+rainbowBlockButton.Size = UDim2.new(0, 150, 0, 50)
+rainbowBlockButton.Position = UDim2.new(0, 170, 0, 10)
+rainbowBlockButton.Parent = painel
 
-local parafalButton = Instance.new("TextButton")
-parafalButton.Name = "ParafalButton"
-parafalButton.Text = "Parafal (100)"
-parafalButton.Size = UDim2.new(0, 100, 0, 50)
-parafalButton.Position = UDim2.new(0, 230, 0, 10)
-parafalButton.Parent = panel
+local galaxyBlockButton = Instance.new("TextButton")
+galaxyBlockButton.Name = "GalaxyBlockButton"
+galaxyBlockButton.Text = "Galaxy Block (1/10/100)"
+galaxyBlockButton.Size = UDim2.new(0, 150, 0, 50)
+galaxyBlockButton.Position = UDim2.new(0, 330, 0, 10)
+galaxyBlockButton.Parent = painel
 
--- Function to duplicate weapon
-local function duplicateWeapon(weapon, quantity)
-    -- Find the local player
-    local player = game.Players.LocalPlayer
+local voidBlockButton = Instance.new("TextButton")
+voidBlockButton.Name = "VoidBlockButton"
+voidBlockButton.Text = "Void Block (1/10/100)"
+voidBlockButton.Size = UDim2.new(0, 150, 0, 50)
+voidBlockButton.Position = UDim2.new(0, 490, 0, 10)
+voidBlockButton.Parent = painel
+
+-- Função para criar super blocos
+local function criarSuperBloco(tipo, quantidade)
+    -- Encontre o jogador local
+    local jogador = game.Players.LocalPlayer
     
-    -- Find the player's character
-    local character = player.Character
+    -- Encontre o caractere do jogador
+    local caractere = jogador.Character
     
-    -- Check if the character exists
-    if character then
-        -- Find the player's inventory
-        local inventory = player.Backpack
+    -- Verifique se o caractere existe
+    if caractere then
+        -- Encontre o Humanoid do caractere
+        local humanoid = caractere:FindFirstChild("Humanoid")
         
-        -- Check if the inventory exists
-        if inventory then
-            -- Duplicate the weapon
-            for i = 1, quantity do
-                local duplicatedWeapon = Instance.new("Tool")
-                duplicatedWeapon.Name = weapon
-                duplicatedWeapon.Parent = inventory
+        -- Verifique se o Humanoid existe
+        if humanoid then
+            -- Crie o super bloco
+            for i = 1, quantidade do
+                local superBloco = Instance.new("Part")
+                superBloco.Name = tipo .. "Block"
+                superBloco.Size = Vector3.new(1, 1, 1)
+                superBloco.Position = caractere.HumanoidRootPart.Position + Vector3.new(0, 2, 0)
+                superBloco.Anchored = true
+                superBloco.CanCollide = false
+                superBloco.Transparency = 0.5
+                superBloco.Parent = game.Workspace
             end
         end
     end
 end
 
--- Connect the weapon buttons to the duplicate weapon function
-uziButton.MouseButton1Click:Connect(function()
-    duplicateWeapon("Uzi", 1)
+-- Conectar os botões de super blocos à função de criar super blocos
+diamondBlockButton.MouseButton1Click:Connect(function()
+    criarSuperBloco("Diamond", 1)
 end)
 
-akButton.MouseButton1Click:Connect(function()
-    duplicateWeapon("AK", 10)
+diamondBlockButton.MouseButton2Click:Connect(function()
+    criarSuperBloco("Diamond", 10)
 end)
 
-parafalButton.MouseButton1Click:Connect(function()
-    duplicateWeapon("Parafal", 100)
+diamondBlockButton.MouseButton3Click:Connect(function()
+    criarSuperBloco("Diamond", 100)
+end)
+
+rainbowBlockButton.MouseButton1Click:Connect(function()
+    criarSuperBloco("Rainbow", 1)
+end)
+
+rainbowBlockButton.MouseButton2Click:Connect(function()
+    criarSuperBloco("Rainbow", 10)
+end)
+
+rainbowBlockButton.MouseButton3Click:Connect(function()
+    criarSuperBloco("Rainbow", 100)
+end)
+
+galaxyBlockButton.MouseButton1Click:Connect(function()
+    criarSuperBloco("Galaxy", 1)
+end)
+
+galaxyBlockButton.MouseButton2Click:Connect(function()
+    criarSuperBloco("Galaxy", 10)
+end)
+
+galaxyBlockButton.MouseButton3Click:Connect(function()
+    criarSuperBloco("Galaxy", 100)
+end)
+
+voidBlockButton.MouseButton1Click:Connect(function()
+    criarSuperBloco("Void", 1)
+end)
+
+voidBlockButton.MouseButton2Click:Connect(function()
+    criarSuperBloco("Void", 10)
+end)
+
+voidBlockButton.MouseButton3Click:Connect(function()
+    criarSuperBloco("Void", 100)
 end)
